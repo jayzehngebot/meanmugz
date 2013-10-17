@@ -1,5 +1,4 @@
-import os, datetime, lob, xhtml2pdf
-import ho.pisa as pisa
+import os, datetime, lob
 from flask import Flask, request # Retrieve Flask, our framework
 from flask import render_template
 app = Flask(__name__)   # create our flask app
