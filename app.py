@@ -1,13 +1,28 @@
-import os
+import os, datetime, lob, xhtml2pdf
+import ho.pisa as pisa
 from flask import Flask, request # Retrieve Flask, our framework
+from flask import render_template
 app = Flask(__name__)   # create our flask app
+
+lob.api_key = 'test_ac623e7bdd0d113f7824746f5d239b0bf1a'
+
+objects = {}
+objects['mug'] = {
+		'image' : 'mug.gif',
+		'user' : 'gnarly',
+		'available' : True	
+}
+
 
 # this is our main page
 @app.route("/")
 def index():
-    return """Hello World!<br/><br/>
-    <a href='/page2'>Visit page #2</a><br>
-    <a href='/form'>Visit form page</a>"""
+
+	# pisa.CreatePDF("main.html","main.pdf")
+		
+        # render the template, pass in the animals dictionary refer to it as 'animals'
+        return render_template("main.html", objects=objects)
+
 
 
 # this is the 2nd route - can be access with /page2
