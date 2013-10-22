@@ -3,7 +3,7 @@ from flask import Flask, request # Retrieve Flask, our framework
 from flask import render_template
 app = Flask(__name__)   # create our flask app
 
-lob.api_key = 'test_ac623e7bdd0d113f7824746f5d239b0bf1a'
+lob.api_key = ''
 
 objects = {}
 objects['mug'] = {
