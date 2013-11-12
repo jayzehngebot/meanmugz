@@ -3,7 +3,7 @@ from flask import Flask, request # Retrieve Flask, our framework
 from flask import render_template
 app = Flask(__name__)   # create our flask app
 
-lob.api_key = 'LOBKEY'
+lob.api_key = 'test_ac623e7bdd0d113f7824746f5d239b0bf1a'
 
 objects = {}
 objects['mug'] = {
@@ -14,24 +14,42 @@ objects['mug'] = {
 
 
 # this is our main page
-@app.route("/")
+@app.route("/", methods=["GET","POST"])
 def index():
+	if request.method =="POST":
 
+		user_name = request.form.get('user_name')
+
+		app.logger.debug(user_name) 
+
+		address_line1 = request.form.get('address01')
+		address_line2 = request.form.get('address02')
+		city = request.form.get('city')
+		state = request.form.get('state')
+		zipcode = request.form.get('zip')
+
+		address = lob.Address.create(name=user_name, address_line1=address_line1, address_line2=address_line2,
+		                             address_city=city, address_state=state, address_country='US',
+		                             address_zip=zipcode)
+
+		print address.to_dict()
+
+		return render_template("success.html")
+
+	else:
 	# pisa.CreatePDF("main.html","main.pdf")
 		
         # render the template, pass in the animals dictionary refer to it as 'animals'
-        return render_template("main.html", objects=objects)
-
-
+		return render_template("main.html")
 
 # this is the 2nd route - can be access with /page2
-@app.route("/page2")
+@app.route("/verify-address")
 def page2():
 	return "<h2>Welcome to page 2</h2><p>This is just amazing!</p>"
 
 
 # new route will accept both a GET and POST request from the client (web browser)
-@app.route("/form", methods=["GET","POST"])
+@app.route("/formzone", methods=["GET","POST"])
 def simpleform():
 
 	# Did the client make a POST request?
